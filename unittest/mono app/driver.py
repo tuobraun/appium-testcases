@@ -10,7 +10,7 @@ class Driver:
             "platformVersion": "10",
             "deviceName": "Pixel_2",
             #"app": "C:/Users/vsergin/OneDrive - ICertainty/Appium/apks/com.icertainty.forms_7.0.458_r.apk",
-            "noReset": "true",
+            "noReset": "false",
             #"fullReset": "true",
             "appPackage": "com.icertainty.forms",
             "appActivity": "crc640126a6b348a6ad42.MainActivity",
@@ -28,4 +28,4 @@ class Driver:
         }
         
         self.instance = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-        #self.wait = WebDriverWait(self.instance, 120)
+        self.wait = WebDriverWait(self.instance, 120)
