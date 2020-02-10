@@ -1,0 +1,15 @@
+.idea
+/.idea
+.idea/
+.vscode
+.pytest_cache
+.cache
+__pycache__
+apps
+assets
+Application/__pycache__
+Screens/__pycache__
+Tests/__pycache__
+Credentials
+notes.txt
+report.html
