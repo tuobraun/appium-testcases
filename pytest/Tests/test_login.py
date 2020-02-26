@@ -1,4 +1,3 @@
-import time
 import pytest
 from Credentials.credentials import Credentials
 
@@ -10,3 +9,6 @@ def test_login(mainfixture):
 
 def test_check_upd_profile(mainfixture):
     mainfixture.sync.update_check(Credentials.profile_name)
+
+def test_dashboard_loaded(mainfixture):
+    mainfixture.dash.dashboard_loaded()

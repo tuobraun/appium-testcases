@@ -2,7 +2,7 @@ import time
 from appium.webdriver.common.mobileby import MobileBy
 
 
-class LoginScreen:
+class LoginScreenAndroid:
 
     def __init__(self, app):
         self.app = app
