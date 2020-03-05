@@ -1,10 +1,10 @@
 from appium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Screens.screen_login import LoginScreenAndroid
+from Screens.screen_login import LoginScreenAndroid, LoginScreenIOs
 from Screens.screen_sync import SyncScreenAndroid
-from Screens.screen_dashboard import DashboardScreenAndroid
-from Screens.screen_audit import AuditScreenAndroid
+from Screens.screen_dashboard import DashboardScreenAndroid, DashboardScreenIOs
+from Screens.screen_audit import AuditScreenAndroid, AuditScreenIOs
 
 class App:
 
@@ -44,7 +44,7 @@ class App:
             'platformVersion': '13.2',
             'automationName': 'XCUITest',
             'deviceName': 'iPhone 11 Pro Max',
-            'useNewWDA': 'true',
+            #'useNewWDA': 'true',
             'bundleId': 'com.ICertainty.Forms',
             'udid': 'auto',
             'noReset': 'true',
@@ -62,10 +62,15 @@ class App:
         self.wait = WebDriverWait(self.driver, 90)
         self.driver.implicitly_wait(2)
 
-        self.login = LoginScreenAndroid(self)
-        self.sync = SyncScreenAndroid(self)
-        self.dash = DashboardScreenAndroid(self)
-        self.audit = AuditScreenAndroid(self)
+        if platform == 'android':
+            self.login = LoginScreenAndroid(self)
+            self.sync = SyncScreenAndroid(self)
+            self.dash = DashboardScreenAndroid(self)
+            self.audit = AuditScreenAndroid(self)
+        else:
+            self.login = LoginScreenIOs(self)
+            self.dash = DashboardScreenIOs(self)
+            self.audit = AuditScreenIOs(self)
 
         self.driver.hide_keyboard()
 

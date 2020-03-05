@@ -29,3 +29,21 @@ class DashboardScreenAndroid:
     def open_section(self, name):
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("'+name+'")').click()
         print(name)
+
+
+class DashboardScreenIOs(DashboardScreenAndroid):
+    def __init__(self, app):
+        super().__init__(app)
+
+        self.dashboard_rght_btn = (MobileBy.ACCESSIBILITY_ID, '...')
+        self.back_arrow = (MobileBy.ACCESSIBILITY_ID, 'LeftArrow')
+        self.filter_icon = (MobileBy.ACCESSIBILITY_ID, 'bit dark filter')
+        self.start_new = (MobileBy.ACCESSIBILITY_ID, 'Start New')
+
+    def dashboard_loaded(self):
+        self.app.wait_element(self.dashboard_rght_btn)
+        print('- Dashboard loaded! :-)')
+
+    def open_section(self, name):
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, name)).click()
+        print(name)

@@ -128,3 +128,25 @@ class AuditScreenAndroid:
         # Populate radiobutton questions
         self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Yes").instance(0))').click()
         self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("Save and Close").instance(0))').click()
+
+
+class AuditScreenIOs(AuditScreenAndroid):
+    def __init__(self, app):
+        super().__init__(app)
+
+        self.dashboard_rght_btn = (MobileBy.ACCESSIBILITY_ID, '...')
+        self.back_arrow = (MobileBy.ACCESSIBILITY_ID, 'LeftArrow')
+
+        self.prev_arrow = (MobileBy.ACCESSIBILITY_ID, 'BlueLeftArrow')
+        self.next_arrow = (MobileBy.ACCESSIBILITY_ID, 'BlueRightArrow')
+
+    def choose_audit(self, audit):
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, audit)).click()
+        print("Choosing: "+audit)
+
+    def choose_supplier(self):
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Suppliers')).click() #No id
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Selected')).click()
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, self.supplier_list[0])).click()
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Save and Close')).click() #No id
+        print('Supplier chosen')
