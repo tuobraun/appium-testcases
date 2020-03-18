@@ -22,6 +22,11 @@ class DashboardScreenAndroid:
         self.filter_icon = pckgnm+"ActionButtonView_RootLayout"
         self.list_view = pckgnm+"ListItemView_GroupTextView"
 
+        self.footer_new = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="NewFooterButton"]/android.widget.LinearLayout')
+        self.footer_scheduled = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="ScheduleFooterButton"]/android.widget.LinearLayout')
+        self.footer_sync = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="SyncFooterButton"]/android.widget.LinearLayout')
+        self.footer_home = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="HomeFooterButton"]/android.widget.LinearLayout')
+
     def dashboard_loaded(self):
         self.wait.until(EC.element_to_be_clickable((MobileBy.ID, self.dashboard_rght_btn)))
         print('- Dashboard loaded! :-)')
@@ -39,6 +44,12 @@ class DashboardScreenIOs(DashboardScreenAndroid):
         self.back_arrow = (MobileBy.ACCESSIBILITY_ID, 'LeftArrow')
         self.filter_icon = (MobileBy.ACCESSIBILITY_ID, 'bit dark filter')
         self.start_new = (MobileBy.ACCESSIBILITY_ID, 'Start New')
+
+        self.footer_new = (MobileBy.ACCESSIBILITY_ID, 'NewFooterButton')
+        self.footer_scheduled = (MobileBy.ACCESSIBILITY_ID, 'ScheduleFooterButton')
+        self.footer_sync = (MobileBy.ACCESSIBILITY_ID, 'SyncFooterButton')
+        self.footer_home = (MobileBy.ACCESSIBILITY_ID, 'HomeFooterButton')
+        
 
     def dashboard_loaded(self):
         self.app.wait_element(self.dashboard_rght_btn)

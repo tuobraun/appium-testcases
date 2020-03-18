@@ -51,7 +51,6 @@ class AuditScreenAndroid:
         self.apply_default = "Apply Default Answers"
         self.answer_all = "Answer All"
         self.answer_empty = "Answer Empty"
-        self.ca_comment = "Test Corrective Action"
 
         self.filter_incomplete = "Incomplete"
         self.filter_required = "Required"
@@ -66,7 +65,7 @@ class AuditScreenAndroid:
         self.wait.until(EC.presence_of_element_located(self.search_clear))
         self.driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("'+audit+'").instance(0))').click()
         #driver.find_element_by_android_uiautomator('new UiSelector().text("{}")').format(vendor_audit)
-        print("Choosing: "+audit)
+        print(f'Choosing: {audit}')
 
     def choose_supplier(self):
         self.wait.until(EC.presence_of_element_located((MobileBy.CLASS_NAME, self.audit_icon_class)))
@@ -79,6 +78,7 @@ class AuditScreenAndroid:
     def select_topic(self, topic):
         self.wait.until(EC.presence_of_element_located((MobileBy.CLASS_NAME, self.audit_icon_class)))
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("'+topic+'")').click()
+        print(f'Topic selected: - {topic}')
 
     def apply_ca(self):
         self.driver.find_element_by_android_uiautomator('new UiSelector().text("'+self.no+'")').click()
@@ -88,7 +88,7 @@ class AuditScreenAndroid:
         self.wait.until(EC.text_to_be_present_in_element((MobileBy.ID, self.dashboard_header), "Answered:"))
         time.sleep(1)
         score_print = self.driver.find_element_by_id(self.dashboard_header)
-        print("Corrective Action applied")
+        print('Corrective Action applied')
         print(score_print.text)
 
     def pass_radiobutton_cheklists(self):
@@ -136,17 +136,58 @@ class AuditScreenIOs(AuditScreenAndroid):
 
         self.dashboard_rght_btn = (MobileBy.ACCESSIBILITY_ID, '...')
         self.back_arrow = (MobileBy.ACCESSIBILITY_ID, 'LeftArrow')
+        self.filter_icon = (MobileBy.ACCESSIBILITY_ID, 'bit dark filter')
 
         self.prev_arrow = (MobileBy.ACCESSIBILITY_ID, 'BlueLeftArrow')
         self.next_arrow = (MobileBy.ACCESSIBILITY_ID, 'BlueRightArrow')
+        self.more_inf = (MobileBy.ACCESSIBILITY_ID, 'More Info')
+        self.save_n_close = (MobileBy.ACCESSIBILITY_ID, 'Save and Close')
+        self.unselect = (MobileBy.ACCESSIBILITY_ID, 'Unselect')
+        self.apply_default = (MobileBy.ACCESSIBILITY_ID, 'Apply Default Answers')
+        self.answer_all = (MobileBy.ACCESSIBILITY_ID, 'Answer All')
+        self.answer_empty = (MobileBy.ACCESSIBILITY_ID, 'Answer Empty')
+
 
     def choose_audit(self, audit):
+        self.driver.execute_script('mobile: scroll', {'direction': 'down'})
         self.app.wait_element((MobileBy.ACCESSIBILITY_ID, audit)).click()
-        print("Choosing: "+audit)
+        print(f'Choosing: {audit}')
 
     def choose_supplier(self):
-        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Suppliers')).click() #No id
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Suppliers')).click()
         self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Selected')).click()
         self.app.wait_element((MobileBy.ACCESSIBILITY_ID, self.supplier_list[0])).click()
-        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, 'Save and Close')).click() #No id
+        self.app.wait_element(self.save_n_close).click()
         print('Supplier chosen')
+
+    def select_topic(self, topic):
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, topic)).click()
+        print(f'Topic selected: - {topic}')
+
+    def apply_ca(self):
+        self.driver.wait_element((MobileBy.XPATH, '//XCUIElementTypeButton[@name="No"]')).click()
+        #self.driver.wait_element((MobileBy.CLASS_NAME, self.text_box_class))).send_keys('Test Corrective Action')
+        self.app.wait_element(self.save_n_close).click()
+        self.app.wait_element(self.filter_icon)
+        print('Corrective Action applied')
+
+    def pass_radiobutton_cheklists(self):
+        while True:
+            try:
+                #topic_title_print = self.driver.find_element_by_id(self.topic_title).text
+                #print (f'- {topic_title_print}')
+                
+                # Apply Answer
+                self.app.wait_element(self.dashboard_rght_btn).click()
+                self.app.wait_element(self.apply_default).click()
+                self.app.wait_element(self.filter_icon)
+
+                # Apply CA
+                self.apply_ca()
+
+                # Go to next Topic
+                self.driver.find_element_by_id(self.next_arrow).click()
+            except NoSuchElementException:
+                self.app.wait_element(self.back_arrow).click()
+                time.sleep(2)
+                break

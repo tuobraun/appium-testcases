@@ -8,7 +8,7 @@ from Screens.screen_audit import AuditScreenAndroid, AuditScreenIOs
 
 class App:
 
-    def __init__(self, platform='android'):
+    def __init__(self, platform='iOS'):
         DESIRED_CAPS = None
         APPIUM_HOST = 'http://localhost:4723/wd/hub'
         BUNDLE_NAME = 'com.icertainty.forms'
@@ -41,10 +41,10 @@ class App:
 
         DESIRED_CAPS_IOS = {
             'platformName': 'iOS',
-            'platformVersion': '13.2',
+            'platformVersion': '11.2',
             'automationName': 'XCUITest',
-            'deviceName': 'iPhone 11 Pro Max',
-            #'useNewWDA': 'true',
+            'deviceName': 'iPhone X',
+            'useNewWDA': 'false',
             'bundleId': 'com.ICertainty.Forms',
             'udid': 'auto',
             'noReset': 'true',
