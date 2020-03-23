@@ -59,7 +59,6 @@ class LoginScreenIOs(LoginScreenAndroid):
 
     def save_psswrd(self):
         selected = self.app.wait_element(self.login_screen_save_psswrd).get_attribute('value')
-        print(selected)
 
         if selected == '1':
             print('Password already saved')

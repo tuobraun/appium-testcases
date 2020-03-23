@@ -1,0 +1,31 @@
+{
+  "iOS": {
+    "platformName": "iOS",
+    "platformVersion": "13.2",
+    "deviceName": "iPhone 11 Pro Max",
+    "bundleId": "com.ICertainty.Forms",
+    "automationName": "XCUITest",
+    "useNewWDA": "false",
+    "udid": "auto",
+    "noReset": "true",
+    "clearSystemFiles": "true"
+  },
+  "Android": {
+    "platformName": "android",
+    "platformVersion": "10",
+    "deviceName": "Pixel_С",
+    "appPackage": "com.icertainty.forms",
+    "appActivity": "crc640126a6b348a6ad42.MainActivity",
+    "automationName": "uiautomator2",
+    "noReset": "true",
+    "skipDeviceInitialization": "true",
+    "skipServerInstallation": "true",
+    "isHeadless": "true",
+    "disableAndroidWatchers": "true",
+    "skipUnlock": "true",
+    "disableWindowAnimation": "true",
+    "autoGrantPermissions ": "true",
+    "clearDeviceLogsOnStart": "true",
+    "clearSystemFiles": "true"
+  }
+}
