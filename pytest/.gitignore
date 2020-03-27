@@ -5,6 +5,9 @@
 .pytest_cache
 .cache
 __pycache__
+=
+allure_reports
+allure_results
 apps
 assets
 Application/__pycache__

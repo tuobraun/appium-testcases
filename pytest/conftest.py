@@ -1,4 +1,5 @@
 import pytest
+import allure
 from Application.baseApp import App
 
 
