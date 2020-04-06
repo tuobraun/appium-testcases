@@ -43,7 +43,7 @@ class SyncScreenAndroid:
             print('- No update needed')
             try:
                 self.driver.find_element_by_android_uiautomator('new UiSelector().text("'+profile_name+'")').click()
-                print('- Profile chosen')
+                print(f'- Profile {profile_name} chosen')
             except NoSuchElementException:
                 print('- Default profile is used')
                 print('- Waiting for syncing to finish')
@@ -72,3 +72,28 @@ class SyncScreenAndroid:
             print("- Starting Sync...")
             self.wait.until(EC.invisibility_of_element_located((MobileBy.ID, self.sync_bar)))
             print("- Sync finished!")
+
+
+class SyncScreenIOs(SyncScreenAndroid):
+    def __init__(self, app):
+        super().__init__(app)
+
+        #PROFILE SCREEN Locators:
+        self.sync_profiles = (MobileBy.ACCESSIBILITY_ID, 'Profiles')
+
+        #SYNС
+        self.sync_progress_bar = (MobileBy.ACCESSIBILITY_ID, 'Progress')
+
+    def update_check(self, profile_name):
+        print('- Starting sync...')
+        time.sleep(3)
+        try:
+            self.app.find_element(self.sync_profiles)
+            print('- Choosing profile...')
+
+            self.app.find_element((MobileBy.ACCESSIBILITY_ID, profile_name)).click()
+            print(f'- Profile {profile_name} chosen')
+
+        except NoSuchElementException:
+            print('- Default profile is used')
+            print('- Waiting for syncing to finish')

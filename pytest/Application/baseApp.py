@@ -3,7 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Application.configurationLoader import load_config
 from Screens.screen_login import LoginScreenAndroid, LoginScreenIOs
-from Screens.screen_sync import SyncScreenAndroid
+from Screens.screen_sync import SyncScreenAndroid, SyncScreenIOs
 from Screens.screen_dashboard import DashboardScreenAndroid, DashboardScreenIOs
 from Screens.screen_audit import AuditScreenAndroid, AuditScreenIOs
 
@@ -25,6 +25,7 @@ class App:
             self.audit = AuditScreenAndroid(self)
         else:
             self.login = LoginScreenIOs(self)
+            self.sync = SyncScreenIOs(self)
             self.dash = DashboardScreenIOs(self)
             self.audit = AuditScreenIOs(self)
 
