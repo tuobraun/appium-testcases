@@ -5,6 +5,7 @@ from Application.configurationLoader import load_config
 from Screens.screen_login import LoginScreenAndroid, LoginScreenIOs
 from Screens.screen_sync import SyncScreenAndroid, SyncScreenIOs
 from Screens.screen_dashboard import DashboardScreenAndroid, DashboardScreenIOs
+from Screens.screen_settings import SettingsScreenAndroid, SettingsScreenIOs
 from Screens.screen_audit import AuditScreenAndroid, AuditScreenIOs
 
 class App:
@@ -22,11 +23,13 @@ class App:
             self.login = LoginScreenAndroid(self)
             self.sync = SyncScreenAndroid(self)
             self.dash = DashboardScreenAndroid(self)
+            self.settings = SettingsScreenAndroid(self)
             self.audit = AuditScreenAndroid(self)
         else:
             self.login = LoginScreenIOs(self)
             self.sync = SyncScreenIOs(self)
             self.dash = DashboardScreenIOs(self)
+            self.settings = SettingsScreenAndroid(self)
             self.audit = AuditScreenIOs(self)
 
         self.driver.hide_keyboard()

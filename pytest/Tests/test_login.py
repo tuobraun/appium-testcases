@@ -8,7 +8,7 @@ def test_login(mainfixture):
     mainfixture.login.click_login()
 
 def test_check_upd_profile(mainfixture):
-    mainfixture.sync.update_check(Credentials.profile_name)
+    mainfixture.sync.choose_profile(Credentials.profile_name)
 
 def test_dashboard_loaded(mainfixture):
     mainfixture.dash.dashboard_loaded()
