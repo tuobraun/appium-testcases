@@ -28,16 +28,15 @@ class SettingsScreenAndroid():
     def open_settings(self):
         self.app.wait_element(self.drawer_settings).click()    
 
-    def assert_url(self, url):
+    def assert_url(self):
         current_url = self.app.wait_element(self.web_site_url).text
-        print(current_url)
-        assert current_url == url
+        return current_url
 
-    def assert_user(self, user):
+    def assert_user(self):
         current_username = self.app.wait_element(self.current_user).text
         s = current_username
         s = s[s.find('(')+1:s.find(')')]
-        assert s == user
+        return s
 
     def click_reset(self):
         self.app.wait_element(self.reset_data).click()

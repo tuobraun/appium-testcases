@@ -6,4 +6,5 @@ from Application.baseApp import App
 def mainfixture():
     app = App()
     yield app
+    app.get_screenshot()
     app.destroy()

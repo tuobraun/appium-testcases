@@ -1,3 +1,6 @@
+import os
+import time
+import allure
 from appium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -47,3 +50,12 @@ class App:
 
     def find_element(self, locator):
         return self.driver.find_element(*locator)
+
+    #Helpers
+    def get_screenshot(self):
+        self.scrn_time = time.strftime('%Y-%m-%d - %H-%M-%S')
+        self.currentpath = os.getcwd()
+        self.filepath = os.path.join(f'{self.currentpath}/screen-shots/{self.scrn_time} - test screenshot.png')
+        self.driver.save_screenshot(self.filepath)
+        print(f'Screenshot saved to {self.filepath}')
+        allure.attach.file(f'{self.filepath}', attachment_type=allure.attachment_type.PNG)
