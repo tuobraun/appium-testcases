@@ -7,4 +7,3 @@ selenium
 appium-python-client
 pytest-html
 allure-pytest
-progressbar
