@@ -137,6 +137,7 @@ class AuditScreenIOs(AuditScreenAndroid):
         self.dashboard_rght_btn = (MobileBy.ACCESSIBILITY_ID, '...')
         self.back_arrow = (MobileBy.ACCESSIBILITY_ID, 'LeftArrow')
         self.filter_icon = (MobileBy.ACCESSIBILITY_ID, 'bit dark filter')
+        self.login_screen_clear = (MobileBy.ACCESSIBILITY_ID, 'Clear text')
 
         self.prev_arrow = (MobileBy.ACCESSIBILITY_ID, 'BlueLeftArrow')
         self.next_arrow = (MobileBy.ACCESSIBILITY_ID, 'BlueRightArrow')
@@ -147,10 +148,27 @@ class AuditScreenIOs(AuditScreenAndroid):
         self.answer_all = (MobileBy.ACCESSIBILITY_ID, 'Answer All')
         self.answer_empty = (MobileBy.ACCESSIBILITY_ID, 'Answer Empty')
 
+        self.text_box_class = (MobileBy.ACCESSIBILITY_ID, 'MultiLineTextItemCell:0:1')
+        self.text_box_xpath = (MobileBy.XPATH, '//XCUIElementTypeCell[@name="MultiLineTextItemCell:0:0"]/XCUIElementTypeTextView')
 
+    def filter_list(self, filter_name):
+        self.app.wait_element(self.filter_icon).click()
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, filter_name)).click()
+
+    def search_audit(self, audit):
+        self.driver.find_element_by_ios_predicate('type == "XCUIElementTypeSearchField"').click()
+        self.driver.find_element_by_ios_predicate('type == "XCUIElementTypeImage"').send_keys(audit)
+        self.driver.find_element_by_accessibility_id('Search').click()
+        self.app.wait_element(self.login_screen_clear).click()
+    
     def choose_audit(self, audit):
-        self.driver.execute_script('mobile: scroll', {'direction': 'down'}) # For iPhone only
         self.app.wait_element((MobileBy.ACCESSIBILITY_ID, audit)).click()
+        print(f'Choosing: {audit}')
+
+    def scroll_n_choose_audit(self, audit):
+        scroll_table = self.app.find_element((MobileBy.XPATH, '//XCUIElementTypeApplication[@name=\"IC Forms\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeTable')) # For iPhone only
+        self.driver.execute_script("mobile: scroll", {"direction": "down", "element": scroll_table, "predicateString": "label == 'Wawa Food Safety and Defense Audit' AND visible == 1"}) # For iPhone only
+        self.app.find_element((MobileBy.ACCESSIBILITY_ID, audit)).click()
         print(f'Choosing: {audit}')
 
     def choose_supplier(self):
@@ -165,8 +183,9 @@ class AuditScreenIOs(AuditScreenAndroid):
         print(f'Topic selected: - {topic}')
 
     def apply_ca(self):
-        self.driver.wait_element((MobileBy.XPATH, '//XCUIElementTypeButton[@name="No"]')).click()
-        #self.driver.wait_element((MobileBy.CLASS_NAME, self.text_box_class))).send_keys('Test Corrective Action')
+        self.app.wait_element((MobileBy.ID, 'No')).click()
+        self.app.wait_element(self.text_box_class).click() #In case a Simulator runs very slow... :(
+        self.app.wait_element(self.text_box_class).send_keys('Test Corrective Action')
         self.app.wait_element(self.save_n_close).click()
         self.app.wait_element(self.filter_icon)
         print('Corrective Action applied')
@@ -186,7 +205,7 @@ class AuditScreenIOs(AuditScreenAndroid):
                 self.apply_ca()
 
                 # Go to next Topic
-                self.driver.find_element_by_id(self.next_arrow).click()
+                self.app.wait_element(self.next_arrow).click()
             except NoSuchElementException:
                 self.app.wait_element(self.back_arrow).click()
                 time.sleep(2)

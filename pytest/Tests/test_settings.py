@@ -9,7 +9,7 @@ from Credentials.credentials import Credentials
 def test_open_settings(mainfixture):
     mainfixture.dash.dashboard_loaded()
     mainfixture.settings.open_drawer()
-    mainfixture.settings.open_settings()
+    mainfixture.settings.drawer_actions('Settings')
 
 @allure.step('Asserting credentials')
 @allure.description("""Making sure that we logged in to the correct Website""")
@@ -24,7 +24,7 @@ def test_assert_url(mainfixture):
 def test_assert_user(mainfixture):
     assert mainfixture.settings.assert_user() == Credentials.user_name
 
-@pytest.mark.skip(reason='No Reset needed. Data must be submitted to the Server')
+#@pytest.mark.skip(reason='No Reset needed. Data must be submitted to the Server')
 @allure.step('Step: Reseting Data')
 @allure.title('Data can be Reset')
 def test_reset_data(mainfixture):
