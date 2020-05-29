@@ -18,7 +18,7 @@ class App:
         DESIRED_CAPS = load_config()
 
         self.driver = webdriver.Remote(APPIUM_HOST, DESIRED_CAPS)
-        self.wait = WebDriverWait(self.driver, 90)
+        self.wait = WebDriverWait(self.driver, 60)
         self.driver.implicitly_wait(2)
         print('Driver started')
 
@@ -32,7 +32,7 @@ class App:
             self.login = LoginScreenIOs(self)
             self.sync = SyncScreenIOs(self)
             self.dash = DashboardScreenIOs(self)
-            self.settings = SettingsScreenAndroid(self)
+            self.settings = SettingsScreenIOs(self)
             self.audit = AuditScreenIOs(self)
 
         self.driver.hide_keyboard()
