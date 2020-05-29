@@ -25,8 +25,8 @@ class SettingsScreenAndroid():
     def open_drawer(self):
         self.app.wait_element(self.hamburder_menu).click()
 
-    def open_settings(self):
-        self.app.wait_element(self.drawer_settings).click()    
+    def drawer_actions(self, drawerAction):
+        self.driver.find_element_by_android_uiautomator('new UiSelector().text("'+drawerAction+'")').click() 
 
     def assert_url(self):
         current_url = self.app.wait_element(self.web_site_url).text
@@ -47,5 +47,21 @@ class SettingsScreenIOs(SettingsScreenAndroid):
     def __init__(self, app):
         super().__init__(app)
 
-    def settings_actions(self, action):
-        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, action)).click()
+        self.hamburder_menu = (MobileBy.ACCESSIBILITY_ID, 'MainMenu-Button')
+        self.web_site_url = (MobileBy.ACCESSIBILITY_ID, Credentials.web_site_url) #Not true :(
+        self.current_user = (MobileBy.ACCESSIBILITY_ID, 'Sergin, Vadim (vsergin) ') #Not true :(
+        self.reset_data = (MobileBy.ID, 'Reset Data')
+        self.sync_btn_install = (MobileBy.XPATH, '//XCUIElementTypeButton[@name="Reset"]')
+
+    def drawer_actions(self, drawerAction):
+        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, drawerAction)).click()
+    
+    def assert_url(self):
+        current_url = self.app.wait_element(self.web_site_url).text
+        return current_url
+
+    def assert_user(self):
+        current_username = self.app.wait_element(self.current_user).text
+        s = current_username
+        s = s[s.find('(')+1:s.find(')')]
+        return s
