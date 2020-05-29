@@ -29,7 +29,7 @@ class SyncScreenAndroid:
         #Dashboard
         self.hamburder_menu = (MobileBy.ID, pckgnm+'HeaderPanelView_MainMenuButton')
         self.dashboard_rght_btn = (MobileBy.ID, pckgnm+'HeaderPanelView_RightButton2')
-        self.footer_sync = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="SyncFooterButton"]/android.widget.LinearLayout')
+        self.footer_sync = (MobileBy.ACCESSIBILITY_ID, 'SyncFooterButton')
 
     def choose_profile(self, profile_name):
         self.wait.until(EC.invisibility_of_element_located((self.sync_bar_close)))
@@ -54,17 +54,13 @@ class SyncScreenAndroid:
             print("- Sync finished!")
 
     def just_sync(self):
-        self.app.find_element(self.footer_sync)
-        try:
-            self.app.find_element(self.sync_message)
-            print('Sync Error!')
-        except NoSuchElementException:
-            self.app.wait_element(self.sync_bar_close)
-            print("- Starting Sync...")
-            self.wait.until(EC.invisibility_of_element_located((self.sync_bar)))
-            print("- Sync is in progress...")
-            self.wait.until(EC.visibility_of_element_located((self.sync_bar)))
-            print("- Sync finished!")
+        self.app.find_element(self.footer_sync).click()
+        self.app.wait_element(self.sync_bar_close)
+        print("- Starting Sync...")
+        self.wait.until(EC.invisibility_of_element_located((self.sync_bar)))
+        print("- Sync is in progress...")
+        self.wait.until(EC.visibility_of_element_located((self.sync_bar)))
+        print("- Sync finished!")
 
 
 class SyncScreenIOs(SyncScreenAndroid):
@@ -75,8 +71,11 @@ class SyncScreenIOs(SyncScreenAndroid):
         self.sync_profiles = (MobileBy.ACCESSIBILITY_ID, 'Profiles')
 
         #SYNС
-        self.sync_progress_bar = (MobileBy.ACCESSIBILITY_ID, 'Progress')
+        self.sync_bar = (MobileBy.ACCESSIBILITY_ID, 'StatusBar-View')
+        self.sync_bar_close = (MobileBy.ACCESSIBILITY_ID, 'StatusBar-CloseButton')
+        self.sync_progress_bar = (MobileBy.ACCESSIBILITY_ID, 'StatusBar-ProgressView')
         self.footer_sync = (MobileBy.ACCESSIBILITY_ID, 'SyncFooterButton')
+        self.sync_text = (MobileBy.ACCESSIBILITY_ID, 'StatusBar-MessageLabel')
 
     def choose_profile(self, profile_name):
         print('- Starting sync...')
