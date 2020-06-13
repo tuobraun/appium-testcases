@@ -10,17 +10,15 @@ class DashboardScreenAndroid:
         self.driver = self.app.driver
         self.wait = self.app.wait
 
-        pckgnm = "com.icertainty.forms:id/"
-
         #DASHBOARD, PANNEL, LISTVIEWS
-        self.dashboard_header = pckgnm+"HeaderPanelView_Title"
-        self.dashboard_section = pckgnm+"DetailsFragment_ItemsView"
-        self.hamburder_menu = pckgnm+"HeaderPanelView_MainMenuButton"
-        self.dashboard_rght_btn = pckgnm+"HeaderPanelView_RightButton2"
+        self.dashboard_header = (MobileBy.ID, 'HeaderPanelView_Title')
+        self.dashboard_section = (MobileBy.ID, 'DetailsFragment_ItemsVie')
+        self.hamburder_menu = (MobileBy.ID, 'HeaderPanelView_MainMenuButton')
+        self.dashboard_rght_btn = (MobileBy.ID, 'HeaderPanelView_RightButton2')
 
-        self.back_arrow = pckgnm+"HeaderPanelView_BackButton"
-        self.filter_icon = pckgnm+"ActionButtonView_RootLayout"
-        self.list_view = pckgnm+"ListItemView_GroupTextView"
+        self.back_arrow = (MobileBy.ID, 'HeaderPanelView_BackButton')
+        self.filter_icon = (MobileBy.ID, 'ActionButtonView_RootLayout')
+        self.list_view = (MobileBy.ID, 'ListItemView_GroupTextView')
 
         self.footer_new = (MobileBy.ACCESSIBILITY_ID, 'NewFooterButton')
         self.footer_scheduled = (MobileBy.ACCESSIBILITY_ID, 'ScheduleFooterButton')
@@ -28,7 +26,8 @@ class DashboardScreenAndroid:
         self.footer_home = (MobileBy.ACCESSIBILITY_ID, 'HomeFooterButton')
 
     def dashboard_loaded(self):
-        self.wait.until(EC.element_to_be_clickable((MobileBy.ID, self.dashboard_rght_btn)))
+        #self.wait.until(EC.element_to_be_clickable(self.dashboard_rght_btn))
+        self.app.wait_element(self.dashboard_rght_btn)
         print('- Dashboard loaded! :-)')
 
     def open_section(self, name):

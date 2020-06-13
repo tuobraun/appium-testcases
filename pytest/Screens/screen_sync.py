@@ -11,24 +11,22 @@ class SyncScreenAndroid:
         self.driver = self.app.driver
         self.wait = self.app.wait
 
-        pckgnm = 'com.icertainty.forms:id/'
-
         #PROFILE SCREEN Locators:
-        self.search_clear = (MobileBy.ID, pckgnm+'ListFragment_CancelSearchButton')
-        self.search_box = (MobileBy.ID, pckgnm+'ListFragment_Keywords')
+        self.search_clear = (MobileBy.ID, 'ListFragment_CancelSearchButton')
+        self.search_box = (MobileBy.ID, 'ListFragment_Keywords')
 
         #SYNС
-        self.sync_bar = (MobileBy.ID, pckgnm+'StatusBar_Root')
-        self.sync_bar_close = (MobileBy.ID, pckgnm+'StatusBar_CloseBtn')
-        self.sync_text = (MobileBy.ID, pckgnm+'StatusBarView_MessageTextView')
-        self.sync_progress_bar = (MobileBy.ID, pckgnm+'StatusBarView_ProgressBar')
+        self.sync_bar = (MobileBy.ID, 'StatusBar_Root')
+        self.sync_bar_close = (MobileBy.ID, 'StatusBar_CloseBtn')
+        self.sync_text = (MobileBy.ID, 'StatusBarView_MessageTextView')
+        self.sync_progress_bar = (MobileBy.ID, 'StatusBarView_ProgressBar')
         self.sync_message = (MobileBy.ID, 'android:id/message')
         self.sync_btn_later = (MobileBy.ID, 'android:id/button2')
         self.sync_btn_install = (MobileBy.ID, 'android:id/button1')
 
         #Dashboard
-        self.hamburder_menu = (MobileBy.ID, pckgnm+'HeaderPanelView_MainMenuButton')
-        self.dashboard_rght_btn = (MobileBy.ID, pckgnm+'HeaderPanelView_RightButton2')
+        self.hamburder_menu = (MobileBy.ID, 'HeaderPanelView_MainMenuButton')
+        self.dashboard_rght_btn = (MobileBy.ID, 'HeaderPanelView_RightButton2')
         self.footer_sync = (MobileBy.ACCESSIBILITY_ID, 'SyncFooterButton')
 
     def choose_profile(self, profile_name):

@@ -9,9 +9,7 @@ class SettingsScreenAndroid():
         self.driver = self.app.driver
         self.wait = self.app.wait
 
-        pckgnm = "com.icertainty.forms:id/"
-
-        self.hamburder_menu = (MobileBy.ID, 'com.icertainty.forms:id/HeaderPanelView_MainMenuButton')
+        self.hamburder_menu = (MobileBy.ID, 'HeaderPanelView_MainMenuButton')
 
         self.drawer_sync = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="ListItemViewHolder:2"]/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.ImageView')
         self.drawer_settings = (MobileBy.XPATH, '//android.widget.LinearLayout[@content-desc="ListItemViewHolder:3"]/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.ImageView')
