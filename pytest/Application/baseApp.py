@@ -13,7 +13,7 @@ from Screens.screen_audit import AuditScreenAndroid, AuditScreenIOs
 
 class App:
 
-    def __init__(self, platform='iOS'):
+    def __init__(self, define_platform):
         APPIUM_HOST = 'http://localhost:4723/wd/hub'
         DESIRED_CAPS = load_config()
 
@@ -22,7 +22,7 @@ class App:
         self.driver.implicitly_wait(2)
         print('Driver started')
 
-        if platform == 'Android':
+        if define_platform == 'Android':
             self.login = LoginScreenAndroid(self)
             self.sync = SyncScreenAndroid(self)
             self.dash = DashboardScreenAndroid(self)
@@ -53,7 +53,7 @@ class App:
 
     #Helpers
     def get_screenshot(self):
-        self.scrn_time = time.strftime('%Y-%m-%d - %H-%M-%S')
+        self.scrn_time = time.strftime('%Y-%m-%d_-_%H-%M-%S')
         self.currentpath = os.getcwd()
         self.filepath = os.path.join(f'{self.currentpath}/screen-shots/{self.scrn_time} - test screenshot.png')
         self.driver.save_screenshot(self.filepath)
