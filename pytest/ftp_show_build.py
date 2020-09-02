@@ -5,7 +5,7 @@ import re
 from Credentials.credentials import FtpCredentials
 
 
-def ftp_download(platform):
+def ftp_show_build(platform):
     ftp = FTP(FtpCredentials.ic_ftp)
     ftp.login(user=FtpCredentials.user, passwd = FtpCredentials.passwd)
     print(f'- Logged in under {FtpCredentials.user}')
@@ -29,4 +29,4 @@ def ftp_download(platform):
     ftp.quit()
     print('- Disconnected')
 
-ftp_download(FtpCredentials.ANDROID_DIR)
+ftp_show_build(FtpCredentials.ANDROID_DIR)

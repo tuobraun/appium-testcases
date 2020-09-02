@@ -1,4 +1,5 @@
 from appium.webdriver.common.mobileby import MobileBy
+from selenium.common.exceptions import NoSuchElementException
 from Credentials.credentials import Credentials
 
 
@@ -20,12 +21,6 @@ class SettingsScreenAndroid():
         self.reset_data = (MobileBy.ACCESSIBILITY_ID, 'ButtonViewHolder:9_ResetData')
         self.sync_btn_install = (MobileBy.ID, 'android:id/button1')
 
-    def open_drawer(self):
-        self.app.wait_element(self.hamburder_menu).click()
-
-    def drawer_actions(self, drawerAction):
-        self.driver.find_element_by_android_uiautomator('new UiSelector().text("'+drawerAction+'")').click() 
-
     def assert_url(self):
         current_url = self.app.wait_element(self.web_site_url).text
         return current_url
@@ -38,7 +33,10 @@ class SettingsScreenAndroid():
 
     def click_reset(self):
         self.app.wait_element(self.reset_data).click()
-        self.app.wait_element(self.sync_btn_install).click()
+        try:
+            self.app.find_element(self.sync_btn_install).click()
+        except NoSuchElementException:
+            print('No data to upload. So, downloading changes...')
 
 
 class SettingsScreenIOs(SettingsScreenAndroid):
@@ -51,9 +49,6 @@ class SettingsScreenIOs(SettingsScreenAndroid):
         self.reset_data = (MobileBy.ID, 'Reset Data')
         self.sync_btn_install = (MobileBy.XPATH, '//XCUIElementTypeButton[@name="Reset"]')
 
-    def drawer_actions(self, drawerAction):
-        self.app.wait_element((MobileBy.ACCESSIBILITY_ID, drawerAction)).click()
-    
     def assert_url(self):
         current_url = self.app.wait_element(self.web_site_url).text
         return current_url

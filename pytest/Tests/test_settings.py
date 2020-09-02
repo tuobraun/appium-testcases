@@ -7,9 +7,8 @@ from Credentials.credentials import Credentials
 @allure.description("""Opening Settings through the drawer menu""")
 @allure.title('Settings Screen can be opened')
 def test_open_settings(mainfixture):
-    mainfixture.dash.dashboard_loaded()
-    mainfixture.settings.open_drawer()
-    mainfixture.settings.drawer_actions('Settings')
+    mainfixture.dash.open_drawer()
+    mainfixture.dash.drawer_actions('Settings')
 
 @allure.step('Asserting credentials')
 @allure.description("""Making sure that we logged in to the correct Website""")
@@ -29,5 +28,5 @@ def test_assert_user(mainfixture):
 @allure.title('Data can be Reset')
 def test_reset_data(mainfixture):
     mainfixture.settings.click_reset()
-    mainfixture.sync.choose_profile(Credentials.profile_name)
+    mainfixture.sync.choose_profile("8.6")
     mainfixture.dash.dashboard_loaded()

@@ -10,7 +10,7 @@ def test_login(mainfixture):
 
 @allure.title('Mobile profile can be chosen')
 def test_check_upd_profile(mainfixture):
-    mainfixture.sync.choose_profile(Credentials.profile_name)
+    mainfixture.sync.choose_profile("8.6")
 
 @allure.title('Dashboard can be loaded')
 def test_dashboard_loaded(mainfixture):

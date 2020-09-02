@@ -15,7 +15,7 @@ class App:
 
     def __init__(self, define_platform):
         APPIUM_HOST = 'http://localhost:4723/wd/hub'
-        DESIRED_CAPS = load_config()
+        DESIRED_CAPS = load_config(define_platform)
 
         self.driver = webdriver.Remote(APPIUM_HOST, DESIRED_CAPS)
         self.wait = WebDriverWait(self.driver, 60)
