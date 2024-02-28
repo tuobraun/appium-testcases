@@ -1,8 +1,0 @@
-.pytest_cache
-.vscode
-__pycache__
-.cache
-credentials
-screens/__pycache__
-tests/__pycache__
-tests/.pytest_cache
